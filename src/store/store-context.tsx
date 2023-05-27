@@ -3,7 +3,7 @@ import { State, ACTION_TYPE, ContextType } from "../types/state";
 import { INITIAL_DATA } from "../constants";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const StoreContext = createContext<ContextType>({state: INITIAL_DATA, dispatch: () => {}})
+export const StoreContext = createContext<ContextType>({state: INITIAL_DATA, dispatch: () => {}})
 
 export enum ACTIONS {
     ADD_PLANET_LIST = 'add_planet_list',
