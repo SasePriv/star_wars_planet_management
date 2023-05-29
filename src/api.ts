@@ -1,27 +1,15 @@
-import axios from 'axios';
-import { PlanetResponseApi, Planet } from './types/planet';
+import { Planet } from './types/planet';
+import { People } from "./types/people";
+import { fetchAllPages } from './helpers/http';
 
-const API_URL = import.meta.env.VITE_STAR_WARS_ENDPOINT
-const GET_PLANETS_ENDPOINT = (page = 1) => `${API_URL}/planets/?page=${page}`
+const API_URL = import.meta.env.VITE_STAR_WARS_ENDPOINT;
+const GET_PLANETS_ENDPOINT = (page = 1): string => `${API_URL}/planets/?page=${page}`;
+const GET_PEOPLES_ENDPOINT = (page = 1): string => `${API_URL}/people/?page=${page}`;
 
-export const getPlanetListRequest = async (): Promise<Planet[]> => {
-    let pageKey = 1;
-    let keepFetching = true;
-    const planetList: Planet[] = [];
-    while (keepFetching) {
-        try {
-         const response = await axios.get<PlanetResponseApi>(GET_PLANETS_ENDPOINT(pageKey));
-         const { data } = response;
-         planetList.push(...data.results);
-         if (data.next === null) {
-             keepFetching = false;
-             continue
-         }
-         pageKey += 1;
-        } catch (e) {
-            console.log(e)
-            keepFetching = false;
-        }
-    }
-    return planetList
-}
+export const getPlanetListRequest = async(): Promise<Planet[]> => {
+  return await fetchAllPages<Planet>(GET_PLANETS_ENDPOINT);
+};
+
+export const getPeopleListRequest = async(): Promise<People[]> => {
+  return await fetchAllPages<People>(GET_PEOPLES_ENDPOINT);
+};
