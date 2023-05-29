@@ -1,0 +1,9 @@
+.btn-confirmation {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-confirmation button {
+    margin: 10px;
+}
