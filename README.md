@@ -9,17 +9,17 @@ This repository contains a Dockerized Star Wars project for easier execution. Be
 1. Clone this repository to your local machine:
 ```bash
 git clone https://github.com/SasePriv/star_wars_planet_management.git
-``
+```
 
 2. Navigate to the project's root directory:
 ```bash
 cd star-wars-project
-``
+```
 
 3. Create a .env file in the project's root directory with the following parameters:
 ```
 VITE_STAR_WARS_ENDPOINT=https://swapi.dev/api
-``
+```
 The VITE_STAR_WARS_ENDPOINT parameter defines the endpoint of the Star Wars API to be used in the project.
 
 ## Running the Project
