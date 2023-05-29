@@ -1,6 +1,7 @@
 import { createContext, useReducer, useMemo, ReactNode, ReducerState } from "react";
 import { State, ACTION_TYPE, ContextType } from "../types/state";
 import { INITIAL_DATA } from "../constants";
+import {Planet} from "../types/planet";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const StoreContext = createContext<ContextType>({state: INITIAL_DATA, dispatch: () => {}})
@@ -8,17 +9,16 @@ export const StoreContext = createContext<ContextType>({state: INITIAL_DATA, dis
 export enum ACTIONS {
     ADD_PLANET_LIST = 'add_planet_list',
     TOGGLE_LOADING = 'toggle_loading',
-    ADD_PlANET_FAV = 'add_planet_fav',
-    DELETE_PLANET_FAV = 'delete_planet_fav',
-    EDIT_PLANET_FAV = 'edit_planet_fav',
+    ADD_PlANET_TO_LIST = 'add_planet_fav',
+    ADD_PEOPLE_LIST = 'add_people_list'
 }
 
 const reducer = (state: State, action: ACTION_TYPE): State => {
     switch (action.type) {
         case ACTIONS.ADD_PLANET_LIST:
-            return { ...state, planetList: action.payload};
-        case ACTIONS.ADD_PlANET_FAV:
-            return { ...state, planetFav: [...state.planetFav, action.payload]};
+            return { ...state, planetList: action.payload, planetsUrl: action.payload.map((planet: Planet) => planet.url)};
+        case ACTIONS.ADD_PEOPLE_LIST:
+            return { ...state, peopleList: action.payload};
         default:
             return state
     }
