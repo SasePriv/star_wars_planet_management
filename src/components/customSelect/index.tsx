@@ -6,7 +6,6 @@ export type OptionType = {
 };
 
 export default function CustomSelect<
-  Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<OptionType> = GroupBase<OptionType>
 >(props: Props<OptionType, IsMulti, Group>) {
