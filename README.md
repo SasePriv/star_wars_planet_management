@@ -36,3 +36,18 @@ This will start the necessary Docker containers for the project and run the appl
 
 ## Stopping the Project
 To stop and remove the Docker containers for the project, simply press Ctrl + C in the terminal where docker-compose up is running. This will shut down the containers and free up the used resources.
+
+## How to execute the test
+1. Enter in the bash of container
+```bash
+docker exec -it vite_docker sh
+```
+2. And run the following command 
+```bash
+npm test
+```
+
+## To do
+* Sort the list of planets by name, diameter, climate, terrain or population.
+* Pagination of the list of planet
+* Adding more test cases

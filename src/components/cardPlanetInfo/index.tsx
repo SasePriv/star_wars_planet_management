@@ -1,10 +1,10 @@
-import React from "react";
-import { AiFillHeart, AiFillEdit, AiFillDelete } from 'react-icons/ai';
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { Planet } from '../../types/planet';
 import Taootine from '../../assets/images/tatooine.jpeg'
+import { CSSProperties } from "react";
 import './style.css'
 
-interface Props {
+export interface Props {
     planet: Planet;
     onDetail: (planet: Planet) => void;
     onEdit: (planet: Planet) => void;
@@ -12,31 +12,31 @@ interface Props {
 }
 
 function CardPlanetInfo({ planet, onDetail, onEdit, onDelete }: Props) {
-    const cardStyle: React.CSSProperties = {
+    const cardStyle: CSSProperties = {
         backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0.03) 10%, 
         rgba(0, 0, 0, 0.9) 100%), url(${Taootine})`,
       };
 
-    const handleDetails = (e) => {
+    const handleDetails = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         onDetail(planet)
     }
 
-    const handleEdit= (e) => {
+    const handleEdit= (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         onEdit(planet)
     }
 
-    const handleDelete= (e) => {
+    const handleDelete= (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         onDelete(planet)
     }
 
     return (
-        <div onClick={handleDetails} className="card" style={cardStyle}>
+        <div onClick={handleDetails} className="card" style={cardStyle} data-testid="card">
           <div className="options">
-              <div onClick={handleEdit} className="options-icons"><AiFillEdit/></div>
-              <div onClick={handleDelete} className="options-icons"><AiFillDelete/></div>
+              <div onClick={handleEdit} data-testid="card-edit" className="options-icons"><AiFillEdit/></div>
+              <div onClick={handleDelete} data-testid="card-delete" className="options-icons"><AiFillDelete/></div>
           </div>
           <div className="card-description">
               <h2 className="planet-name">{planet.name}</h2>
