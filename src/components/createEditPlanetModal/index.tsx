@@ -1,14 +1,10 @@
-import Modal from 'react-bootstrap/Modal';
-import { Button } from "react-bootstrap";
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import React, { useState, useEffect } from "react";
-import {Planet, PlanetForm} from "../../types/planet";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Planet, PlanetForm} from "../../types/planet";
 import { People } from "../../types/people";
 import CustomSelect, { OptionType } from "../customSelect";
 
-interface ModalProps {
+export interface ModalProps {
   onHide: () => void;
   show?: boolean;
   type: 'create' | 'edit';
@@ -63,6 +59,7 @@ function CreateEditPlanetModal(props: ModalProps) {
             })
             setSelectedResidents(options.filter(({ value }: OptionType) => props.planet?.residents.includes(value)))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.planet])
 
     const isValid = (): boolean => {
@@ -103,11 +100,11 @@ function CreateEditPlanetModal(props: ModalProps) {
       setInputs(values => ({...values, [name]: value}))
     }
 
-    const handleChangeSelect = (selectedOptions: OptionType[]) => {
-        setSelectedResidents(selectedOptions);
+    const handleChangeSelect = (option: readonly OptionType[]) => {
+        setSelectedResidents([...option]);
     };
 
-    const handleSubmit = (event: MouseEvent): void => {
+    const handleSubmit = (event: React.MouseEvent<HTMLElement>): void => {
       event.preventDefault()
       if (isValid()) {
           inputs.residents = selectedResidents.map(({ value }: OptionType) => ( value ))
@@ -134,97 +131,110 @@ function CreateEditPlanetModal(props: ModalProps) {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <FloatingLabel label="Planet name" className="mb-3" >
+              <Form.Floating className="mb-3">
                 <Form.Control
                   type="text"
                   placeholder="Name"
                   name="name"
+                  id="name"
                   required
                   value={inputs.name || ''}
                   onChange={handleChange}
                   isInvalid={error.name}
                 />
+                <label htmlFor="name">Planet name</label>
                 <Form.Control.Feedback type="invalid">
                   Please do not leave this field blank
                 </Form.Control.Feedback>
-              </FloatingLabel>
-              <FloatingLabel label="Planet url" className="mb-3" >
+              </Form.Floating>
+              <Form.Floating className="mb-3" >
                 <Form.Control
                   type="text"
                   placeholder="Url"
                   name="url"
                   required
+                  id="url"
                   value={inputs.url || ''}
                   onChange={handleChange}
                   isInvalid={error.url}
                   disabled={props.type === 'edit'}
                 />
+                <label htmlFor="url">Planet url</label>
                 <Form.Control.Feedback type="invalid">
                   Please do not leave this field blank, this field cannot be repeated because it will be used as a planet identifier.
                 </Form.Control.Feedback>
-              </FloatingLabel>
+              </Form.Floating>
               <InputGroup className="mb-3">
-                <FloatingLabel label="Diameter" >
+                <Form.Floating >
                   <Form.Control
                     type="number"
                     placeholder="Diameter"
                     aria-label="Recipient's username"
                     name="diameter"
                     min="0"
+                    id="diameter"
                     value={inputs.diameter || 0}
                     onChange={handleChange}
                     isInvalid={error.diameter}
                   />
+                  <label htmlFor="diameter">Diameter</label>
                   <Form.Control.Feedback type="invalid">
                     The diameter must be a number greater than 0
                   </Form.Control.Feedback>
-                </FloatingLabel>
+                </Form.Floating>
                 <InputGroup.Text id="basic-addon2">Km</InputGroup.Text>
               </InputGroup>
-              <FloatingLabel label="Climate" className="mb-3" >
+              <Form.Floating className="mb-3" >
                 <Form.Control
                   type="text"
                   placeholder="Climate"
                   name="climate"
+                  id="climate"
                   required
                   value={inputs.climate || ''}
                   onChange={handleChange}
                   isInvalid={error.climate}
                 />
+                <label htmlFor="climate">Climate</label>
                 <Form.Control.Feedback type="invalid">
                   Please do not leave this field blank
                 </Form.Control.Feedback>
-              </FloatingLabel>
-              <FloatingLabel label="Terrain" className="mb-3" >
+              </Form.Floating>
+              <Form.Floating className="mb-3" >
                 <Form.Control
                   type="text"
                   placeholder="Terrain"
                   name="terrain"
+                  id="terrain"
                   required
                   value={inputs.terrain || ''}
                   onChange={handleChange}
                   isInvalid={error.terrain}
                 />
+                <label htmlFor="terrain">Terrain</label>
                 <Form.Control.Feedback type="invalid">
                   Please do not leave this field blank
                 </Form.Control.Feedback>
-              </FloatingLabel>
-              <FloatingLabel label="Number of habitants of the planet" className="mb-3" >
+              </Form.Floating>
+              <Form.Floating className="mb-3" >
                 <Form.Control
                   type="number"
                   placeholder="Number of habitants of the planet"
                   name="population"
+                  id="population"
                   required
                   min="0"
                   value={inputs.population || 0}
                   onChange={handleChange}
                 />
-              </FloatingLabel>
-              <label className="m-1">Residents</label>
+                <label htmlFor="population">Number of habitants of the planet</label>
+              </Form.Floating>
+              <label htmlFor="Residents" className="m-1">Residents</label>
               <CustomSelect
                   value={selectedResidents}
                   isMulti
                   name="Residents"
+                  id="Residents"
                   getOptionValue={(option) => option.value}
                   getOptionLabel={(option) => option.label}
                   options={options}
