@@ -17,7 +17,7 @@ function PlanetFilter({ add, setPlanetSearchFilter }: PlanetFilterProps) {
     return(
         <div className="filter-container">
             <div className="filter-content">
-                <input onChange={handleChange} className="search" placeholder="Search" type="text" name="search"/>
+                <input onChange={handleChange} className="search" placeholder="Search by planet name, climate, terrain" type="text" name="search"/>
                 <MdAddCircle onClick={() => add(true)} className="add-icon" title="Add new planet" size="25"/>
             </div>
         </div>
