@@ -1,8 +1,7 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { Modal, Button } from 'react-bootstrap';
 import './style.css'
 
-interface ConfirmationModalProps {
+export interface ConfirmationModalProps {
     onHide: () => void;
     show?: boolean;
     onConfirm: () => void;

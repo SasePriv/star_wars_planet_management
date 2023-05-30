@@ -5,9 +5,11 @@ import {getPlanetListRequest, getPeopleListRequest} from "./api";
 import {Planet} from "./types/planet";
 import {ContextType} from "./types/state";
 import {People} from "./types/people";
+import RebelionWhite from './assets/images/rebelion-white.png';
+import './app.css'
 
 function App() {
-    const { dispatch }: ContextType = useContext(StoreContext);
+    const { state, dispatch }: ContextType = useContext(StoreContext);
 
     useEffect(() => {
         dispatch({ type: ACTIONS.TOGGLE_LOADING, payload: true })
@@ -22,10 +24,13 @@ function App() {
                 dispatch({ type: ACTIONS.ADD_PEOPLE_LIST, payload: peopleList })
                 dispatch({ type: ACTIONS.TOGGLE_LOADING, payload: false })
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
   return (
-        <PlanetView/>
+      <>
+          { state.loading ? <div className="loading"><img src={RebelionWhite} alt="rebelion loading"/></div> : <PlanetView/>}
+      </>
   )
 }
 

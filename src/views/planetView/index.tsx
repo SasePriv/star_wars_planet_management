@@ -55,6 +55,7 @@ function PlanetView() {
     useEffect(() => {
         initializeNormalizedNamesMap();
         filterProductList()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.planetList, planetSearchFilter])
 
     const onCreate = (planet: Planet) => {

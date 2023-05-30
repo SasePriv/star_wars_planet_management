@@ -13,7 +13,6 @@ export type State = {
 export type ACTION_TYPE =
     | { type: ACTIONS.ADD_PLANET_LIST, payload: Planet[] }
     | { type: ACTIONS.TOGGLE_LOADING; payload: boolean }
-    | { type: ACTIONS.ADD_PlANET_TO_LIST; payload: Planet }
     | { type: ACTIONS.ADD_PEOPLE_LIST; payload: People[] }
 
 export type ContextType = {

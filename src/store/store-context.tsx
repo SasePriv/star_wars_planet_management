@@ -9,7 +9,6 @@ export const StoreContext = createContext<ContextType>({state: INITIAL_DATA, dis
 export enum ACTIONS {
     ADD_PLANET_LIST = 'add_planet_list',
     TOGGLE_LOADING = 'toggle_loading',
-    ADD_PlANET_TO_LIST = 'add_planet_fav',
     ADD_PEOPLE_LIST = 'add_people_list'
 }
 
@@ -19,6 +18,8 @@ const reducer = (state: State, action: ACTION_TYPE): State => {
             return { ...state, planetList: action.payload, planetsUrl: action.payload.map((planet: Planet) => planet.url)};
         case ACTIONS.ADD_PEOPLE_LIST:
             return { ...state, peopleList: action.payload};
+        case ACTIONS.TOGGLE_LOADING:
+            return { ...state, loading: action.payload}
         default:
             return state
     }
