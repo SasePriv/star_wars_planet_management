@@ -1,13 +1,10 @@
 import { Planet } from "../../types/planet";
 import { People } from "../../types/people";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Badge from 'react-bootstrap/Badge';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { Button, Modal, Badge, ListGroup } from 'react-bootstrap';
 import './style.css'
 
 
-interface PlanetDetailsModalProps {
+export interface PlanetDetailsModalProps {
     planet: Planet;
     onHide: () => void;
     show?: boolean;
@@ -16,7 +13,7 @@ interface PlanetDetailsModalProps {
 
 function PlanetDetailsModal({ show, onHide, planet, peoples }: PlanetDetailsModalProps) {
     const peopleResident = () => {
-      const rows = [];
+      const rows: JSX.Element[] = [];
       peoples.forEach((people: People) => {
         if (planet.residents.includes(people.url)) {
           rows.push(<li key={people.url}>{people.name}</li>)
