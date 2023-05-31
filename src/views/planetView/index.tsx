@@ -7,6 +7,7 @@ import PlanetFilter from "../../components/planetFilter";
 import CreateEditPlanetModal from "../../components/createEditPlanetModal";
 import PlanetDetailsModal from "../../components/planetDetailsModal";
 import ConfirmationModal from "../../components/confirmationModal";
+import CustomPagination from '../../components/customPagination';
 import { PlanetForm, Planet } from "../../types/planet";
 import { normalizeStr } from '../../helpers/string';
 import './style.css';
@@ -27,6 +28,10 @@ function PlanetView() {
     const [selectedPlanet, setSelectedPlanet] = useState<Planet | null>(null)
     const [planetSearchFilter, setPlanetSearchFilter] = useState<string>('')
     const [filteredProductList, setFilteredProductList] = useState<Planet[]>(state.planetList)
+    const [page, setPage] = useState<number>(1)
+    const [pageData, setPageData] = useState<Map<number, Planet[]>>(new Map())
+    const [itemsByPage, setItemsByPage] = useState<10 | 20 | 30>(10)
+    const [totalPages, setTotalPages] = useState<number>(0)
     const normalizedNamesMap: Map<string, NormalizedMap> = new Map();
 
     const initializeNormalizedNamesMap = (): void => {
@@ -52,11 +57,27 @@ function PlanetView() {
         setFilteredProductList(planetList)
     }
 
+    const calculatePagination = (): void => {
+        const planetDataList = [...filteredProductList];
+        const totalPage = Math.ceil(filteredProductList.length / itemsByPage)
+        const newDataMap: Map<number, Planet[]> = new Map()
+        for (let index = 1; index <= totalPage; index++) {
+            newDataMap[index] = planetDataList.splice(0, itemsByPage)
+        }
+        setTotalPages(totalPage);
+        setPageData(newDataMap);
+    }
+
     useEffect(() => {
         initializeNormalizedNamesMap();
         filterProductList()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.planetList, planetSearchFilter])
+
+    useEffect(() => {
+        calculatePagination()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state.planetList, filteredProductList, itemsByPage])
 
     const onCreate = (planet: Planet) => {
         const clonePlanetList = [...state.planetList]
@@ -130,11 +151,18 @@ function PlanetView() {
                     }}
                     setPlanetSearchFilter={setPlanetSearchFilter}
                 />
-                <PlanetList
-                    planetList={filteredProductList}
+                {pageData[page] && <PlanetList
+                    planetList={pageData[page]}
                     detailPlanet={detailPlanet}
                     editPlanet={editPlanet}
                     deletePlanet={deletePlanet}
+                />}
+                <CustomPagination
+                    total={totalPages}
+                    current={page}
+                    onChangePage={setPage}
+                    pageSize={itemsByPage}
+                    onChangePageSize={setItemsByPage}
                 />
                 <CreateEditPlanetModal
                     show={modalShow}
