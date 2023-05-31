@@ -49,5 +49,4 @@ npm test
 
 ## To do
 * Sort the list of planets by name, diameter, climate, terrain or population.
-* Pagination of the list of planet
 * Adding more test cases
